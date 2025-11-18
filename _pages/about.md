@@ -25,4 +25,4 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-Write your biography here.
+I am a Research Scientist at Google Quantum AI. Previously I did my PhD at Yale University, under the advisorship of Prof. Robert Schoelkopf.
