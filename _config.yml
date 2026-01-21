@@ -108,7 +108,6 @@ collections:
     output: true
   projects:
     output: false
-    output: false
 
 # -----------------------------------------------------------------------------
 # Jekyll settings
