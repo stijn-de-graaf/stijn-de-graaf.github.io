@@ -48,13 +48,6 @@ ninja.data = [{
           section: "Books",handler: () => {
               window.location.href = "/books/story-of-art.html";
             },},{
-        id: 'social-inspire',
-        title: 'Inspire HEP',
-        section: 'Socials',
-        handler: () => {
-          window.open("https://inspirehep.net/authors/2617151", "_blank");
-        },
-      },{
         id: 'social-linkedin',
         title: 'LinkedIn',
         section: 'Socials',
