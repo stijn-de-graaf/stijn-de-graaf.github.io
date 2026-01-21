@@ -86,8 +86,6 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # Blog
 # -----------------------------------------------------------------------------
 
-
-
 # -----------------------------------------------------------------------------
 # Newsletter
 # -----------------------------------------------------------------------------
@@ -110,6 +108,7 @@ collections:
     output: true
   projects:
     output: false
+    output: false
 
 # -----------------------------------------------------------------------------
 # Jekyll settings
@@ -131,8 +130,8 @@ kramdown:
 # Includes & excludes
 include: ["_pages", "_scripts"]
 exclude:
-  - _pages/blog.md 
-  - _pages/projects.md 
+  - _pages/blog.md
+  - _pages/projects.md
   - _pages/news.md
   - _pages/teaching.md
   - _pages/repositories.md
@@ -584,7 +583,6 @@ third_party_libraries:
       css: "https://cdn.jsdelivr.net/npm/venobox@{{version}}/dist/venobox.min.css"
       js: "https://cdn.jsdelivr.net/npm/venobox@{{version}}/dist/venobox.min.js"
     version: "2.1.8"
-
 # -----------------------------------------------------------------------------
 # Get external JSON data
 # -----------------------------------------------------------------------------
