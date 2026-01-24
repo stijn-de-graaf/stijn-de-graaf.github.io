@@ -47,7 +47,10 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/story-of-art.html";
-            },},{
+            },},{id: "news-interviewed-for-physics-world-on-high-fidelity-beamsplitter-demonstration",
+          title: 'Interviewed for Physics World on high-fidelity beamsplitter demonstration',
+          description: "",
+          section: "News",},{
         id: 'social-linkedin',
         title: 'LinkedIn',
         section: 'Socials',
