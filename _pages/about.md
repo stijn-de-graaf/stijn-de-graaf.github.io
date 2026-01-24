@@ -25,4 +25,4 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-Quantum Research Scientist at Google Quantum AI. Building the hardware to tackle otherwise unsolvable problems. PhD from Yale University under the advisorship of Prof Robert Schoelkopf, working on hardware-efficient quantum computing with dual-rail erasure qubits. Nowadays deeply focused on using data to model sytem-level performance of large-scale quantum processors and guide insights about future processor design.
+Research Scientist at Google Quantum AI. Building the hardware to tackle otherwise unsolvable problems. PhD from Yale University under the advisorship of Prof Robert Schoelkopf, working on hardware-efficient quantum computing with dual-rail erasure qubits. Nowadays deeply focused on using data to model system-level performance of large-scale quantum processors and guide insights about future processor design.
