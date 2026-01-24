@@ -50,6 +50,9 @@ ninja.data = [{
             },},{id: "news-interviewed-for-physics-world-on-high-fidelity-beamsplitter-demonstration",
           title: 'Interviewed for Physics World on high-fidelity beamsplitter demonstration',
           description: "",
+          section: "News",},{id: "news-upcoming-invited-talk-at-the-aps-global-physics-summit-2026-in-denver-co-will-be-discussing-results-from-my-phd-demonstrating-a-key-component-of-dual-rail-quantum-processors-the-mid-circuit-erasure-detector-monday-march-26th-5-18pm-mt",
+          title: 'Upcoming Invited Talk at the APS Global Physics Summit 2026 in Denver, CO....',
+          description: "",
           section: "News",},{
         id: 'social-linkedin',
         title: 'LinkedIn',
