@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-[Interviewed for Physics World](https://physicsworld.com/a/rapidly-swapping-photons-make-a-high-quality-quantum-gate/) on high-fidelity beamsplitter demonstration
+Interviewed for [Physics World](https://physicsworld.com/a/rapidly-swapping-photons-make-a-high-quality-quantum-gate/) on high-fidelity beamsplitter demonstration
