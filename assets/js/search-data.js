@@ -37,16 +37,96 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "books-bayesian-optimization",
-          title: 'Bayesian Optimization',
+            },{id: "books-life-3-0",
+          title: 'Life 3.0',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/bayesian_optimization.html";
+              window.location.href = "/books/life-3-0.html";
+            },},{id: "books-why-we-sleep",
+          title: 'Why We Sleep',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/why-we-sleep.html";
+            },},{id: "books-the-precipice",
+          title: 'The Precipice',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the-precipice.html";
+            },},{id: "books-the-future-of-money",
+          title: 'The Future of Money',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the-future-of-money.html";
+            },},{id: "books-going-infinite",
+          title: 'Going Infinite',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/going-infinite.html";
+            },},{id: "books-liar-39-s-poker",
+          title: 'Liar&amp;#39;s Poker',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/liars-poker.html";
+            },},{id: "books-prophet-song",
+          title: 'Prophet Song',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/prophet-song.html";
+            },},{id: "books-the-making-of-the-atomic-bomb",
+          title: 'The Making of the Atomic Bomb',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the-making-of-the-atomic-bomb.html";
+            },},{id: "books-the-world-for-sale",
+          title: 'The World for Sale',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the-world-for-sale.html";
+            },},{id: "books-perfection",
+          title: 'Perfection',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/perfection.html";
+            },},{id: "books-the-caesar-39-s-palace-coup",
+          title: 'The Caesar&amp;#39;s Palace Coup',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the-caesars-palace-coup.html";
+            },},{id: "books-the-invention-of-love",
+          title: 'The Invention of Love',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the-invention-of-love.html";
             },},{id: "books-the-story-of-art",
           title: 'The Story of Art',
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/story-of-art.html";
+            },},{id: "books-barbarians-at-the-gate",
+          title: 'Barbarians at the Gate',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/barbarians-at-the-gate.html";
+            },},{id: "books-the-bonfire-of-the-vanities",
+          title: 'The Bonfire of the Vanities',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/bonfire-of-the-vanities.html";
+            },},{id: "books-outlive",
+          title: 'Outlive',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/outlive.html";
+            },},{id: "books-the-great-mental-models-volume-1",
+          title: 'The Great Mental Models Volume 1',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the-great-mental-models-volume-1.html";
+            },},{id: "books-bayesian-optimization",
+          title: 'Bayesian Optimization',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/bayesian_optimization.html";
             },},{id: "news-interviewed-for-physics-world-on-high-fidelity-beamsplitter-demonstration",
           title: 'Interviewed for Physics World on high-fidelity beamsplitter demonstration',
           description: "",
