@@ -11,11 +11,11 @@ profile:
     <p>Research Scientist</p>
     <p>Google Quantum AI</p>
 
-selected_papers: true # includes a list of papers marked as "selected={true}"
+selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 
 announcements:
-  enabled: true # includes a list of news items
+  enabled: false # includes a list of news items
   scrollable: true # adds a vertical scroll bar if there are more than 3 news items
   limit: 5 # leave blank to include all the news in the `_news` folder
 
@@ -25,4 +25,4 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-Research Scientist at Google Quantum AI. Building the hardware to tackle otherwise unsolvable problems. PhD from Yale University under the advisorship of Prof Robert Schoelkopf, working on hardware-efficient quantum computing with dual-rail erasure qubits. Nowadays deeply focused on using data to model system-level performance of large-scale quantum processors and guide insights about future processor design.
+Research Scientist at Google Quantum AI. I did my PhD at Yale with Rob Schoelkopf, where I developed erasure qubits for fault-tolerant quantum computing. These days I work on physics-informed modeling of large-scale superconducting processors — using physical intuition to design experiments, collect data, and shape what next-generation devices should look like.

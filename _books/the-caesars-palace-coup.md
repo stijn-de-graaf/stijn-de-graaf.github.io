@@ -5,5 +5,5 @@ author: Sujeet Indap and Max Frumes
 date: 2025-01-01
 finished: 2025-01-01
 status: Finished
-isbn: 9781635768428
+isbn: 9781635767742
 ---
