@@ -33,6 +33,7 @@ Prettier uses `@shopify/prettier-plugin-liquid` with `printWidth: 150` and `trai
 ## Architecture
 
 **Content collections** live in prefixed directories:
+
 - `_pages/` — Static pages (about, cv, publications) with permalink frontmatter
 - `_posts/` — Blog posts (`YYYY-MM-DD-title.md` naming convention)
 - `_news/` — Homepage announcements
@@ -41,11 +42,13 @@ Prettier uses `@shopify/prettier-plugin-liquid` with `printWidth: 150` and `trai
 - `_bibliography/papers.bib` — BibTeX publications (managed by jekyll-scholar)
 
 **Templating & styling:**
+
 - `_layouts/` — Liquid layout templates (`.liquid` extension)
 - `_includes/` — Reusable Liquid partials
 - `_sass/` — SCSS stylesheets; `_variables.scss` and `_themes.scss` control theming
 
 **Data-driven content** in `_data/`:
+
 - `cv.yml`, `coauthors.yml`, `venues.yml`, `repositories.yml`, `socials.yml`
 
 **Custom Ruby plugins** in `_plugins/` handle cache busting, Google Scholar/Inspire HEP citations, CDN library downloads, and external post fetching.
@@ -55,6 +58,7 @@ Prettier uses `@shopify/prettier-plugin-liquid` with `printWidth: 150` and `trai
 ## CI/CD
 
 GitHub Actions workflows in `.github/workflows/`:
+
 - `deploy.yml` — Auto-builds and deploys on push to main
 - `prettier.yml` — Enforces code formatting
 - `broken-links.yml` — Link validation via lychee
