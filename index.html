@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stijn de Graaf</title>
+<meta name="description" content="Research scientist at Google Quantum AI in San Francisco, working on superconducting quantum processors and erasure qubits.">
+<link rel="canonical" href="https://stijndegraaf.com/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#fbfaf7">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stijndegraaf.com/">
+<meta property="og:title" content="Stijn de Graaf">
+<meta property="og:description" content="Research scientist at Google Quantum AI in San Francisco, working on superconducting quantum processors and erasure qubits.">
+<meta property="og:image" content="https://stijndegraaf.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/fonts/et-book-roman-old-style-figures.woff" as="font" type="font/woff" crossorigin>
+<style>
+/* One narrow column set in ET Book, like a Tufte-style preprint; the demo sits inline as a figure. */
+@font-face { font-family: "ET Book"; src: url("/fonts/et-book-roman-old-style-figures.woff") format("woff"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "ET Book"; src: url("/fonts/et-book-display-italic-old-style-figures.woff") format("woff"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "ET Book"; src: url("/fonts/et-book-semi-bold-old-style-figures.woff") format("woff"); font-weight: 700; font-style: normal; font-display: swap; }
+
+:root {
+  --bg: #fbfaf7; --fg: #17171a; --muted: #5f5f66; --rule: #e2e0da; --accent: #2440c8;
+  --ok: #1d7a4c; --err: #c2372b; --cup: #f1efea;
+  --f-text: "ET Book", Palatino, "Palatino Linotype", Georgia, serif; --fs: 21px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121317; --fg: #e6e7ea; --muted: #9a9ea8; --rule: #2b2d34; --accent: #93a6ff;
+  --ok: #5cc48d; --err: #ff7a6b; --cup: #1d1f25; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #121317; --fg: #e6e7ea; --muted: #9a9ea8; --rule: #2b2d34; --accent: #93a6ff;
+  --ok: #5cc48d; --err: #ff7a6b; --cup: #1d1f25; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font-family: var(--f-text); font-size: var(--fs); line-height: 1.55;
+  -webkit-font-smoothing: antialiased; font-kerning: normal; }
+a { color: inherit; text-decoration-color: color-mix(in srgb, var(--fg) 35%, transparent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+.page { display: flex; flex-direction: column; gap: 36px; max-width: 620px; margin: 0 auto;
+  padding-block: 72px 96px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.page > * { min-width: 0; }
+
+.intro { display: flex; align-items: center; gap: 16px; }
+.avatar { flex: none; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--cup); border: 1px solid var(--rule); color: var(--muted); font-size: 15px; }
+h1 { margin: 0; font-size: 32px; font-weight: 400; line-height: 1.15; }
+.role { margin: 2px 0 0; color: var(--muted); }
+.bio p { margin: 0 0 12px; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+.bio p:last-child { margin-bottom: 0; }
+
+.lists { display: grid; gap: 30px; }
+.list h2 { margin: 0 0 10px; font-size: 1em; font-weight: 700; }
+.list ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.list li { display: grid; gap: 0; }
+.list .why { color: var(--muted); font-size: .92em; }
+.list .meta { color: var(--muted); font-size: .92em; font-style: italic; }
+.links { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+footer { color: var(--muted); font-size: 15px; }
+
+/* demo figure */
+.toy { margin: 0; display: grid; gap: 14px; border-block: 1px solid var(--rule); padding-block: 24px; }
+.toy-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.toy-title { margin: 0; font-weight: 700; }
+.toy-clock { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 16px; }
+.stage { width: 100%; max-width: 100%; height: auto; display: block; overflow: visible; }
+.stage text { font-family: var(--f-text); font-size: 16px; fill: var(--fg); }
+.stage .ket { font-size: 19px; fill: var(--fg); }
+.table-line { stroke: var(--rule); stroke-width: 2; }
+.cup path { fill: var(--cup); stroke: var(--fg); stroke-width: 1.4; stroke-linejoin: round; }
+.cup { transition: transform .5s cubic-bezier(.3,.7,.2,1); }
+.cup.lift { transform: translateY(-80px); }
+.cup.shiver { animation: shiver .45s ease-in-out; }
+@keyframes shiver { 25% { transform: translateX(-2px) } 50% { transform: translateX(2px) } 75% { transform: translateX(-1px) } }
+.ball { fill: var(--accent); opacity: 0; transition: opacity .3s; }
+.ball.show { opacity: 1; }
+.link { fill: none; stroke: var(--accent); stroke-width: 1.4; stroke-dasharray: 3 6; opacity: .7; animation: flow 1.6s linear infinite; transition: opacity .4s; }
+.link.off { opacity: 0; }
+@keyframes flow { to { stroke-dashoffset: -18; } }
+.lamp { fill: var(--cup); stroke: var(--fg); stroke-width: 1.3; transition: fill .3s; }
+.lamp.busy { animation: pulse .35s ease-in-out 2 alternate; fill: var(--accent); }
+.lamp.ok { fill: var(--ok); } .lamp.err { fill: var(--err); }
+@keyframes pulse { to { opacity: .3; } }
+.ancilla-box { fill: var(--bg); stroke: var(--rule); stroke-width: 1.3; }
+.probe { stroke: var(--rule); stroke-width: 1.3; stroke-dasharray: 2 3; fill: none; }
+
+.controls { display: flex; flex-wrap: wrap; gap: 8px; }
+.controls button { font: inherit; font-size: 16px; line-height: 1; padding: 9px 13px; border-radius: 3px; cursor: pointer;
+  background: var(--bg); color: var(--fg); border: 1px solid var(--rule); transition: border-color .2s; }
+.controls button:hover:not(:disabled) { border-color: var(--fg); }
+.controls button.primary { border-color: var(--fg); }
+.controls button:disabled { opacity: .4; cursor: default; }
+.status { margin: 0; min-height: 3.1em; }
+.status .ok { color: var(--ok); } .status .err { color: var(--err); }
+.tally { color: var(--muted); font-size: 15px; font-variant-numeric: tabular-nums; }
+.caption { margin: 0; color: var(--muted); font-size: 16.5px; }
+.caption b { color: var(--fg); }
+
+/* margin notes: in the right margin on wide screens, tap-to-expand inline on narrow ones */
+body { counter-reset: sn; }
+.sn-ref { counter-increment: sn; cursor: pointer; }
+.sn-ref::after { content: counter(sn); font-size: .62em; vertical-align: super; line-height: 0; padding-left: 1px; color: var(--accent); }
+.sn-toggle { display: none; }
+.sidenote { display: none; font-size: 15.5px; line-height: 1.4; color: var(--muted); text-align: left; hyphens: manual; font-style: normal; }
+.sidenote::before { content: counter(sn) "\2002"; color: var(--accent); }
+.sn-toggle:checked + .sidenote { display: block; margin: 8px 0 10px; padding-left: 12px; border-left: 1px solid var(--rule); }
+@media (min-width: 1140px) {
+  .page { position: relative; left: -130px; }
+  .sidenote, .sn-toggle:checked + .sidenote { display: block; float: right; clear: right; width: 230px; margin: .25em -270px 0 0; padding: 0; border: 0; }
+  .sn-ref { cursor: default; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<main class="page" lang="en">
+  <header class="intro">
+    <div>
+      <h1>Stijn de Graaf</h1>
+      <p class="role">Research Scientist at Google Quantum AI, San Francisco</p>
+    </div>
+  </header>
+
+  <section class="bio">
+    <p>I'm a research scientist at Google Quantum AI, where I work on physics-informed models of large-scale superconducting quantum processors.<label for="sn-1" class="sn-ref" aria-label="Note 1"></label><input type="checkbox" id="sn-1" class="sn-toggle"><span class="sidenote">Superconducting circuits cooled to a hundredth of a degree above absolute zero.</span></p>
+    <p>I did my PhD at Yale with Rob Schoelkopf, where I developed erasure qubits<label for="sn-2" class="sn-ref" aria-label="Note 2"></label><input type="checkbox" id="sn-2" class="sn-toggle"><span class="sidenote">An error whose location is known. Codes can fix about twice as many of these.</span>: superconducting qubits built so that their dominant error can be detected as it happens.</p>
+  </section>
+
+  <figure class="toy" aria-labelledby="toy-title">
+    <div class="toy-head">
+      <p class="toy-title" id="toy-title">erasure detection in a dual-rail qubit</p>
+      <span class="toy-clock" id="clock">t = 0.0 ms</span>
+    </div>
+    <svg class="stage" viewBox="0 0 600 290" role="img" aria-label="Two cavities, drawn as cups, sharing one photon, with an ancilla underneath that counts the photon without measuring which cavity holds it.">
+      <text class="ket" x="300" y="66" text-anchor="middle" id="ket">(|10⟩ + |01⟩)/√2</text>
+      <path class="link" id="link" d="M232 150 Q300 96 368 150"/>
+      <circle class="ball" id="ballA" cx="190" cy="211" r="15"/>
+      <circle class="ball" id="ballB" cx="410" cy="211" r="15"/>
+      <g class="cup" id="cupA"><path d="M146 228 L162 120 Q190 108 218 120 L234 228 Z"/></g>
+      <g class="cup" id="cupB"><path d="M366 228 L382 120 Q410 108 438 120 L454 228 Z"/></g>
+      <line class="table-line" x1="40" y1="229" x2="560" y2="229"/>
+      <text x="190" y="252" text-anchor="middle">cavity A</text>
+      <text x="410" y="252" text-anchor="middle">cavity B</text>
+      <path class="probe" d="M190 260 V274 H282 M410 260 V274 H318"/>
+      <rect class="ancilla-box" x="282" y="262" width="36" height="24" rx="4"/>
+      <circle class="lamp" id="lamp" cx="300" cy="274" r="6"/>
+      <text x="330" y="279">ancilla</text>
+    </svg>
+    <div class="controls">
+      <button id="btnWait" type="button">Wait 0.3 ms</button>
+      <button id="btnCheck" type="button" class="primary">Check for erasure</button>
+      <button id="btnLift" type="button">Look under the cups</button>
+      <button id="btnReset" type="button">Reset</button>
+    </div>
+    <p class="status" id="status" aria-live="polite"></p>
+    <div class="tally" id="tally">checks 0 · erasures detected 0</div>
+    <figcaption class="caption"><b>Figure 1.</b> Most errors in a quantum computer leave no trace. In a dual-rail qubit<label for="sn-3" class="sn-ref" aria-label="Note 3"></label><input type="checkbox" id="sn-3" class="sn-toggle"><span class="sidenote">One microwave photon in one of two cavities. Which cavity is the 0 or 1.</span> the dominant error, photon loss, moves the system out of its allowed states, so it can be detected without measuring the qubit itself. A code that knows where errors occurred can correct about twice as many of them. Decay probability per step uses a toy 1 ms photon lifetime.</figcaption>
+  </figure>
+
+  <section class="lists">
+    <div class="list">
+      <h2>Selected work</h2>
+      <ul>
+        <li><a href="https://arxiv.org/abs/2511.08493">Reinforcement learning control of quantum error correction</a><span class="meta">Nature, 2026</span></li>
+        <li><a href="https://doi.org/10.1126/science.aee7961">Magic state cultivation on a superconducting quantum processor</a><span class="meta">Science, 2026</span></li>
+        <li><a href="https://arxiv.org/abs/2406.14621">Mid-circuit erasure checks on a dual-rail cavity qubit</a><span class="meta">npj Quantum Information, 2025 · first author</span></li>
+        <li><a href="https://arxiv.org/abs/2307.03169">A dual-rail cavity qubit with erasure-detected logical measurements</a><span class="meta">Nature Physics, 2024</span></li>
+        <li><a href="https://doi.org/10.1073/pnas.2221736120">Dual-rail encoding with superconducting cavities</a><span class="meta">PNAS, 2023</span></li>
+        <li><a href="https://doi.org/10.1103/PRXQuantum.4.020355">High on/off ratio beam-splitter gates for bosonic qubits</a><span class="meta">PRX Quantum, 2023 · co-first author</span></li>
+        <li><a href="https://rsl.yale.edu/media/416/download?inline">Microwave beamsplitters for oscillator-based quantum information processing</a><span class="meta">PhD thesis, Yale University, 2025</span></li>
+      </ul>
+    </div>
+    <div class="list">
+      <h2>Talks and press</h2>
+      <ul>
+        <li><a href="https://summit.aps.org/events/MAR-C04/10">Invited talk, APS Global Physics Summit</a><span class="meta">March 2026</span></li>
+        <li><a href="https://physicsworld.com/a/rapidly-swapping-photons-make-a-high-quality-quantum-gate/">Rapidly swapping photons make a high-quality quantum gate</a><span class="meta">Physics World, 2023</span></li>
+      </ul>
+    </div>
+    <div class="list">
+      <h2>Elsewhere</h2>
+      <ul class="links">
+        <li><a href="https://scholar.google.com/citations?user=bTEtAhAAAAAJ">Google Scholar</a></li>
+        <li><a href="https://www.linkedin.com/in/stijn-de-graaf-544227108">LinkedIn</a></li>
+        <li><a href="https://orcid.org/0000-0003-1111-4460">ORCID</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>Updated October 2026</footer>
+</main>
+
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const cupA = $("cupA"), cupB = $("cupB"), ballA = $("ballA"), ballB = $("ballB");
+  const link = $("link"), lamp = $("lamp"), status = $("status"), clock = $("clock"), tally = $("tally"), ket = $("ket");
+  const btnWait = $("btnWait"), btnCheck = $("btnCheck"), btnLift = $("btnLift"), btnReset = $("btnReset");
+
+  const STEP_MS = 0.3, LIFETIME_MS = 1.0;   // toy numbers: decay probability per step = 1 - e^(-0.3)
+  const SUPERPOSITION = "(|10⟩ + |01⟩)/√2";
+  let s, checks = 0, caught = 0, busy = false;
+
+  function say(html) { status.innerHTML = html; }
+  function render() {
+    clock.textContent = "t = " + s.t.toFixed(1) + " ms";
+    tally.textContent = "checks " + checks + " · erasures detected " + caught;
+    const done = s.collapsed || s.flagged;
+    btnWait.disabled = busy || done;
+    btnCheck.disabled = busy || done;
+    btnLift.disabled = busy || s.collapsed;
+    btnReset.disabled = busy;
+  }
+  function reset() {
+    s = { present: true, collapsed: false, flagged: false, t: 0 };
+    [cupA, cupB].forEach(c => c.classList.remove("lift"));
+    [ballA, ballB].forEach(b => b.classList.remove("show"));
+    lamp.setAttribute("class", "lamp");
+    link.classList.remove("off");
+    ket.textContent = SUPERPOSITION;
+    say("One photon is shared between two cavities. Which cavity it occupies encodes the qubit, so neither can be inspected directly.");
+    render();
+  }
+
+  btnWait.addEventListener("click", () => {
+    s.t += STEP_MS;
+    if (s.present && Math.random() < 1 - Math.exp(-STEP_MS / LIFETIME_MS)) s.present = false;
+    [cupA, cupB].forEach(c => { c.classList.remove("shiver"); void c.getBBox(); c.classList.add("shiver"); });
+    say("The photon may have decayed. Nothing observable has changed.");
+    render();
+  });
+
+  btnCheck.addEventListener("click", () => {
+    busy = true; checks++;
+    lamp.setAttribute("class", "lamp busy");
+    say("Measuring the total photon number across both cavities.");
+    render();
+    setTimeout(() => {
+      busy = false;
+      if (s.present) {
+        lamp.setAttribute("class", "lamp ok");
+        say("<span class=\"ok\">One photon.</span> The measurement does not distinguish the two cavities, so the qubit state is preserved.");
+      } else {
+        caught++; s.flagged = true;
+        lamp.setAttribute("class", "lamp err");
+        link.classList.add("off");
+        ket.textContent = "|00⟩";
+        say("<span class=\"err\">No photon: an erasure.</span> The qubit's state is lost, but the error-correcting code now knows which qubit failed and when.");
+      }
+      render();
+    }, 800);
+  });
+
+  btnLift.addEventListener("click", () => {
+    s.collapsed = true;
+    link.classList.add("off");
+    [cupA, cupB].forEach(c => c.classList.add("lift"));
+    if (s.present) {
+      const inA = Math.random() < 0.5;
+      (inA ? ballA : ballB).classList.add("show");
+      ket.textContent = inA ? "|10⟩" : "|01⟩";
+      say("Measuring the cavities directly locates the photon and collapses the superposition. The qubit's information is gone.");
+    } else {
+      ket.textContent = "|00⟩";
+      say(s.flagged
+        ? "Both cavities are empty, as the erasure check reported."
+        : "Both cavities are empty. The photon decayed earlier; an erasure check would have detected this without disturbing a surviving qubit.");
+    }
+    render();
+  });
+
+  btnReset.addEventListener("click", reset);
+  reset();
+})();
+</script>
+</body>
+</html>
