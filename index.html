@@ -83,11 +83,12 @@ footer { color: var(--muted); font-size: 15px; }
 .ball { fill: var(--accent); opacity: 0; transition: opacity .3s; }
 .ball.show { opacity: 1; }
 .link { fill: none; stroke: var(--accent); stroke-width: 1.4; stroke-dasharray: 3 6; opacity: .7; animation: flow 1.6s linear infinite; transition: opacity .4s; }
-.link.off { opacity: 0; }
+.link.off, #bsLabel.off { opacity: 0; }
+.link.fast { animation-duration: .2s; opacity: 1; }
 @keyframes flow { to { stroke-dashoffset: -18; } }
 .lamp { fill: var(--cup); stroke: var(--fg); stroke-width: 1.3; transition: fill .3s; }
 .lamp.busy { animation: pulse .35s ease-in-out 2 alternate; fill: var(--accent); }
-.lamp.ok { fill: var(--ok); } .lamp.err { fill: var(--err); }
+.lamp.err { fill: var(--err); }
 @keyframes pulse { to { opacity: .3; } }
 .ancilla-box { fill: var(--bg); stroke: var(--rule); stroke-width: 1.3; }
 .probe { stroke: var(--rule); stroke-width: 1.3; stroke-dasharray: 2 3; fill: none; }
@@ -98,7 +99,7 @@ footer { color: var(--muted); font-size: 15px; }
 .controls button:hover:not(:disabled) { border-color: var(--fg); }
 .controls button.primary { border-color: var(--fg); }
 .controls button:disabled { opacity: .4; cursor: default; }
-.status { margin: 0; min-height: 3.1em; }
+.status { margin: 0; min-height: 4.65em; }
 .status .ok { color: var(--ok); } .status .err { color: var(--err); }
 .tally { color: var(--muted); font-size: 15px; font-variant-numeric: tabular-nums; }
 .caption { margin: 0; color: var(--muted); font-size: 16.5px; }
@@ -166,9 +167,10 @@ body { counter-reset: sn; }
       <p class="toy-title" id="toy-title">erasure detection in a dual-rail qubit</p>
       <span class="toy-clock" id="clock">t = 0.0 ms</span>
     </div>
-    <svg class="stage" viewBox="0 0 600 290" role="img" aria-label="Two cavities, drawn as cups, sharing one photon, with an ancilla underneath that counts the photon without measuring which cavity holds it.">
+    <svg class="stage" viewBox="0 0 600 290" role="img" aria-label="Two cavities, drawn as cups, sharing one photon. An ancilla is connected only to cavity A, and a beamsplitter swaps the contents of the two cavities.">
       <text class="ket" x="300" y="66" text-anchor="middle" id="ket">(|10⟩ + |01⟩)/√2</text>
       <path class="link" id="link" d="M232 150 Q300 96 368 150"/>
+      <text x="300" y="152" text-anchor="middle" id="bsLabel">beamsplitter</text>
       <circle class="ball" id="ballA" cx="190" cy="211" r="15"/>
       <circle class="ball" id="ballB" cx="410" cy="211" r="15"/>
       <g class="cup" id="cupA"><path d="M146 228 L162 120 Q190 108 218 120 L234 228 Z"/></g>
@@ -176,7 +178,7 @@ body { counter-reset: sn; }
       <line class="table-line" x1="40" y1="229" x2="560" y2="229"/>
       <text x="190" y="252" text-anchor="middle">cavity A</text>
       <text x="410" y="252" text-anchor="middle">cavity B</text>
-      <path class="probe" d="M190 260 V274 H282 M410 260 V274 H318"/>
+      <path class="probe" d="M190 260 V274 H282"/>
       <rect class="ancilla-box" x="282" y="262" width="36" height="24" rx="4"/>
       <circle class="lamp" id="lamp" cx="300" cy="274" r="6"/>
       <text x="330" y="279">ancilla</text>
@@ -184,12 +186,12 @@ body { counter-reset: sn; }
     <div class="controls">
       <button id="btnWait" type="button">Wait 0.3 ms</button>
       <button id="btnCheck" type="button" class="primary">Check for erasure</button>
-      <button id="btnLift" type="button">Look under the cups</button>
+      <button id="btnLift" type="button">Check with slow swaps</button>
       <button id="btnReset" type="button">Reset</button>
     </div>
     <p class="status" id="status" aria-live="polite"></p>
     <div class="tally" id="tally">checks 0 · erasures detected 0</div>
-    <figcaption class="caption"><b>Figure 1.</b> Most errors in a quantum computer leave no trace. In a dual-rail qubit<label for="sn-3" class="sn-ref" aria-label="Note 3"></label><input type="checkbox" id="sn-3" class="sn-toggle"><span class="sidenote">One microwave photon in one of two cavities. Which cavity is the 0 or 1.</span> the dominant error, photon loss, moves the system out of its allowed states, so it can be detected without measuring the qubit itself. A code that knows where errors occurred can correct about twice as many of them. Decay probability per step uses a toy 1 ms photon lifetime.</figcaption>
+    <figcaption class="caption"><b>Figure 1.</b> Most errors in a quantum computer leave no trace. In a dual-rail qubit<label for="sn-3" class="sn-ref" aria-label="Note 3"></label><input type="checkbox" id="sn-3" class="sn-toggle"><span class="sidenote">One microwave photon in one of two cavities. Which cavity is the 0 or 1.</span> the dominant error, photon loss, can be detected directly. The ancilla is coupled to only one cavity, but a strong beamsplitter swaps the two cavities faster than the ancilla can tell them apart, so it responds only to the total photon number. In the device the cavities stay put and their contents swap. In <a href="https://arxiv.org/abs/2406.14621">our experiment</a>, an undetected erasure slipped through in about 9 of every 10,000 checks. The decay rate here is a toy value.</figcaption>
   </figure>
 
   <section class="lists">
@@ -230,7 +232,7 @@ body { counter-reset: sn; }
 (() => {
   const $ = id => document.getElementById(id);
   const cupA = $("cupA"), cupB = $("cupB"), ballA = $("ballA"), ballB = $("ballB");
-  const link = $("link"), lamp = $("lamp"), status = $("status"), clock = $("clock"), tally = $("tally"), ket = $("ket");
+  const bsLabel = $("bsLabel"), link = $("link"), lamp = $("lamp"), status = $("status"), clock = $("clock"), tally = $("tally"), ket = $("ket");
   const btnWait = $("btnWait"), btnCheck = $("btnCheck"), btnLift = $("btnLift"), btnReset = $("btnReset");
 
   const STEP_MS = 0.3, LIFETIME_MS = 1.0;   // toy numbers: decay probability per step = 1 - e^(-0.3)
@@ -244,7 +246,7 @@ body { counter-reset: sn; }
     const done = s.collapsed || s.flagged;
     btnWait.disabled = busy || done;
     btnCheck.disabled = busy || done;
-    btnLift.disabled = busy || s.collapsed;
+    btnLift.disabled = busy || done;
     btnReset.disabled = busy;
   }
   function reset() {
@@ -252,9 +254,9 @@ body { counter-reset: sn; }
     [cupA, cupB].forEach(c => c.classList.remove("lift"));
     [ballA, ballB].forEach(b => b.classList.remove("show"));
     lamp.setAttribute("class", "lamp");
-    link.classList.remove("off");
+    link.classList.remove("off", "fast"); bsLabel.classList.remove("off");
     ket.textContent = SUPERPOSITION;
-    say("One photon is shared between two cavities. Which cavity it occupies encodes the qubit, so neither can be inspected directly.");
+    say("One photon is shared between two cavities. Which cavity it occupies encodes the qubit, so we need to detect the photon without learning where it is.");
     render();
   }
 
@@ -262,45 +264,79 @@ body { counter-reset: sn; }
     s.t += STEP_MS;
     if (s.present && Math.random() < 1 - Math.exp(-STEP_MS / LIFETIME_MS)) s.present = false;
     [cupA, cupB].forEach(c => { c.classList.remove("shiver"); void c.getBBox(); c.classList.add("shiver"); });
+    lamp.setAttribute("class", "lamp");
     say("The photon may have decayed. Nothing observable has changed.");
     render();
   });
 
-  btnCheck.addEventListener("click", () => {
+  // Cups-and-balls shuffle: the two cups trade places n times; n is even, so they end where they began.
+  const DX = 220, calm = matchMedia("(prefers-reduced-motion: reduce)");
+  function shuffle(durations) {
+    if (calm.matches) return Promise.resolve();
+    const total = durations.reduce((a, d) => a + d, 0);
+    const frames = sign => {
+      const out = [{ transform: "translate(0px, 0px)", offset: 0 }];
+      let t = 0, atStart = true;
+      durations.forEach(d => {
+        const dir = atStart ? sign : -sign, x0 = atStart ? 0 : sign * DX;
+        out.push({ transform: `translate(${x0 + dir * DX / 2}px, ${dir === sign ? -22 : 10}px)`, offset: (t + d / 2) / total });
+        t += d; atStart = !atStart;
+        out.push({ transform: `translate(${atStart ? 0 : sign * DX}px, 0px)`, offset: t / total });
+      });
+      return out;
+    };
+    const anims = [cupA.animate(frames(1), { duration: total }), cupB.animate(frames(-1), { duration: total })];
+    return Promise.all(anims.map(x => x.finished));
+  }
+  const FAST = [170, 140, 110, 90, 70, 60, 50, 50, 50, 50, 50, 50, 50, 50, 60, 70, 90, 110];
+  const SLOW = [520, 520];
+
+  function showEmpty() {
+    [cupA, cupB].forEach(c => c.classList.add("lift"));
+    link.classList.add("off"); bsLabel.classList.add("off");
+    ket.textContent = "|00\u27e9";
+  }
+
+  btnCheck.addEventListener("click", async () => {
     busy = true; checks++;
     lamp.setAttribute("class", "lamp busy");
-    say("Measuring the total photon number across both cavities.");
+    link.classList.add("fast");
+    say("Swapping the cavities faster than the ancilla can tell them apart. It can respond only to the total photon number.");
     render();
-    setTimeout(() => {
-      busy = false;
-      if (s.present) {
-        lamp.setAttribute("class", "lamp ok");
-        say("<span class=\"ok\">One photon.</span> The measurement does not distinguish the two cavities, so the qubit state is preserved.");
-      } else {
-        caught++; s.flagged = true;
-        lamp.setAttribute("class", "lamp err");
-        link.classList.add("off");
-        ket.textContent = "|00⟩";
-        say("<span class=\"err\">No photon: an erasure.</span> The qubit's state is lost, but the error-correcting code now knows which qubit failed and when.");
-      }
-      render();
-    }, 800);
+    await shuffle(FAST);
+    busy = false;
+    link.classList.remove("fast");
+    if (s.present) {
+      lamp.setAttribute("class", "lamp");
+      say("<span class=\"ok\">One photon.</span> The ancilla stayed in its ground state and learned nothing about where the photon is, so the qubit is preserved.");
+    } else {
+      caught++; s.flagged = true;
+      lamp.setAttribute("class", "lamp err");
+      showEmpty();
+      say("<span class=\"err\">No photon: an erasure.</span> The ancilla is excited only in this case. The qubit's state is lost, but the code now knows which qubit failed and when.");
+    }
+    render();
   });
 
-  btnLift.addEventListener("click", () => {
-    s.collapsed = true;
-    link.classList.add("off");
-    [cupA, cupB].forEach(c => c.classList.add("lift"));
+  btnLift.addEventListener("click", async () => {
+    busy = true; s.collapsed = true;
+    lamp.setAttribute("class", "lamp busy");
+    say("Swapping slowly, so the ancilla has time to tell the cavities apart.");
+    render();
+    await shuffle(SLOW);
+    busy = false;
     if (s.present) {
+      lamp.setAttribute("class", "lamp");
       const inA = Math.random() < 0.5;
+      [cupA, cupB].forEach(c => c.classList.add("lift"));
+      link.classList.add("off"); bsLabel.classList.add("off");
       (inA ? ballA : ballB).classList.add("show");
-      ket.textContent = inA ? "|10⟩" : "|01⟩";
-      say("Measuring the cavities directly locates the photon and collapses the superposition. The qubit's information is gone.");
+      ket.textContent = inA ? "|10\u27e9" : "|01\u27e9";
+      say("Too slow. The ancilla learned which cavity holds the photon, which collapses the superposition. The qubit's information is gone.");
     } else {
-      ket.textContent = "|00⟩";
-      say(s.flagged
-        ? "Both cavities are empty, as the erasure check reported."
-        : "Both cavities are empty. The photon decayed earlier; an erasure check would have detected this without disturbing a surviving qubit.");
+      lamp.setAttribute("class", "lamp err");
+      showEmpty();
+      say("Both cavities are empty, but a slow check would have destroyed the qubit if the photon had survived.");
     }
     render();
   });
