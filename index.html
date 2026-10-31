@@ -187,7 +187,7 @@ body { counter-reset: sn; }
     <div class="controls">
       <button id="btnWait" type="button">Wait 0.3 ms</button>
       <button id="btnCheck" type="button" class="primary">Check for erasure</button>
-      <button id="btnLift" type="button">Check with slow swaps</button>
+      <button id="btnLift" type="button">Check without swapping</button>
       <button id="btnReset" type="button">Reset</button>
     </div>
     <p class="status" id="status" aria-live="polite"></p>
@@ -290,7 +290,6 @@ body { counter-reset: sn; }
     return Promise.all(anims.map(x => x.finished));
   }
   const FAST = [170, 140, 110, 90, 70, 60, 50, 50, 50, 50, 50, 50, 50, 50, 60, 70, 90, 110];
-  const SLOW = [520, 520];
 
   function showEmpty() {
     [cupA, cupB].forEach(c => c.classList.add("lift"));
@@ -319,27 +318,25 @@ body { counter-reset: sn; }
     render();
   });
 
-  btnLift.addEventListener("click", async () => {
+  // Without swaps the ancilla sees only cavity A, so it measures the photon's location.
+  btnLift.addEventListener("click", () => {
     busy = true; s.collapsed = true;
     lamp.setAttribute("class", "lamp busy");
-    say("Swapping slowly, so the ancilla has time to tell the cavities apart.");
+    link.classList.add("off"); bsLabel.classList.add("off");
+    say("With the beamsplitter off, the ancilla sees only cavity A.");
     render();
-    await shuffle(SLOW);
-    busy = false;
-    if (s.present) {
+    setTimeout(() => {
+      busy = false;
       lamp.setAttribute("class", "lamp");
-      const inA = Math.random() < 0.5;
       [cupA, cupB].forEach(c => c.classList.add("lift"));
-      link.classList.add("off"); bsLabel.classList.add("off");
-      (inA ? ballA : ballB).classList.add("show");
-      ket.textContent = inA ? "|10\u27e9" : "|01\u27e9";
-      say("Too slow. The ancilla learned which cavity holds the photon, which collapses the superposition. The qubit's information is gone.");
-    } else {
-      lamp.setAttribute("class", "lamp err");
-      showEmpty();
-      say("Both cavities are empty, but a slow check would have destroyed the qubit if the photon had survived.");
-    }
-    render();
+      const inA = s.present && Math.random() < 0.5;
+      if (s.present) (inA ? ballA : ballB).classList.add("show");
+      ket.textContent = !s.present ? "|00\u27e9" : inA ? "|10\u27e9" : "|01\u27e9";
+      say(inA
+        ? "The ancilla found the photon in cavity A. Now we know where it is, so the superposition has collapsed and the qubit's information is gone."
+        : "The ancilla found no photon in cavity A. It can't tell whether the photon is in cavity B or lost, and the superposition has collapsed either way.");
+      render();
+    }, 800);
   });
 
   btnReset.addEventListener("click", reset);
