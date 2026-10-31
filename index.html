@@ -118,6 +118,29 @@ body { counter-reset: sn; }
   .sn-ref { cursor: default; }
 }
 
+/* phones */
+.controls button, .sn-ref { touch-action: manipulation; }
+@media (max-width: 600px) {
+  body { font-size: 18.5px; line-height: 1.45; }
+  .page { gap: 28px; padding-block: 40px 64px; }
+  h1 { font-size: 30px; }
+  .role { font-size: 17px; line-height: 1.3; margin-top: 4px; text-wrap: balance; }
+  .bio p { text-align: left; hyphens: manual; -webkit-hyphens: manual; }
+  .toy { padding-block: 20px; }
+  .toy-head { flex-wrap: nowrap; }
+  .toy-clock { flex: none; font-size: 15px; }
+  .stage { overflow: hidden; }
+  .controls { display: grid; grid-template-columns: 1fr 1fr; }
+  .controls button { min-height: 46px; padding: 8px 6px; font-size: 15.5px; line-height: 1.15; }
+  .status { min-height: 5.8em; }
+  .caption { font-size: 16px; }
+  .list ul { gap: 14px; }
+  .links li { padding-block: 4px; }
+  .sn-ref { position: relative; }
+  .sn-ref::before { content: ""; position: absolute; inset: -12px -14px; }
+  .sn-ref::after { font-size: .75em; padding-inline: 2px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
@@ -283,6 +306,13 @@ body { counter-reset: sn; }
   });
 
   btnReset.addEventListener("click", reset);
+
+  // on phones, crop the empty space around the cups so the figure and its labels render larger
+  const stage = document.querySelector(".stage"), narrow = matchMedia("(max-width: 600px)");
+  const fitStage = () => stage.setAttribute("viewBox", narrow.matches ? "100 20 400 272" : "0 0 600 290");
+  narrow.addEventListener("change", fitStage);
+  fitStage();
+
   reset();
 })();
 </script>
