@@ -65,7 +65,6 @@ h1 { margin: 0; font-size: 32px; font-weight: 400; line-height: 1.15; }
 .list .why { color: var(--muted); font-size: .92em; }
 .list .meta { color: var(--muted); font-size: .92em; font-style: italic; }
 .links { display: flex; flex-wrap: wrap; gap: 6px 20px; }
-footer { color: var(--muted); font-size: 15px; }
 
 /* demo figure */
 .toy { margin: 0; display: grid; gap: 14px; border-block: 1px solid var(--rule); padding-block: 24px; }
@@ -103,7 +102,6 @@ footer { color: var(--muted); font-size: 15px; }
 .status { margin: 0; min-height: 4.65em; }
 .status, .caption { text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
 .status .ok { color: var(--ok); } .status .err { color: var(--err); }
-.tally { color: var(--muted); font-size: 15px; font-variant-numeric: tabular-nums; }
 .caption { margin: 0; color: var(--muted); font-size: 16.5px; }
 .caption b { color: var(--fg); }
 
@@ -160,7 +158,7 @@ body { counter-reset: sn; }
   </header>
 
   <section class="bio">
-    <p>I'm a research scientist at Google Quantum AI, where I work on physics-informed models of large-scale superconducting quantum processors.<label for="sn-1" class="sn-ref" aria-label="Note 1"></label><input type="checkbox" id="sn-1" class="sn-toggle"><span class="sidenote">Superconducting circuits cooled to a hundredth of a degree above absolute zero.</span></p>
+    <p>I work on physics-informed models of large-scale superconducting quantum processors.<label for="sn-1" class="sn-ref" aria-label="Note 1"></label><input type="checkbox" id="sn-1" class="sn-toggle"><span class="sidenote">Superconducting circuits cooled to a hundredth of a degree above absolute zero.</span></p>
     <p>I did my PhD at Yale with Rob Schoelkopf, where I helped develop dual-rail erasure qubits: superconducting qubits whose dominant error reveals when and where it occurred, instead of leaving error correction to infer it from parity checks.</p>
   </section>
 
@@ -192,8 +190,7 @@ body { counter-reset: sn; }
       <button id="btnReset" type="button">Reset</button>
     </div>
     <p class="status" id="status" aria-live="polite"></p>
-    <div class="tally" id="tally">checks 0 · erasures detected 0</div>
-    <figcaption class="caption"><b>Figure 1.</b> Most errors in a quantum computer leave no trace. In a dual-rail qubit<label for="sn-3" class="sn-ref" aria-label="Note 3"></label><input type="checkbox" id="sn-3" class="sn-toggle"><span class="sidenote">A single microwave photon shared between two cavities. Which cavity it occupies encodes the 0 or 1.</span> the dominant error, photon loss, can be detected directly. The ancilla is coupled to only one cavity, but a strong beamsplitter swaps the two cavities faster than the ancilla can tell them apart, so it responds only to the total photon number. In the device the cavities stay put and their contents swap. In <a href="https://arxiv.org/abs/2406.14621">our experiment</a>, an undetected erasure slipped through in about 9 of every 10,000 checks. The decay rate here is a toy value.</figcaption>
+    <figcaption class="caption"><b>Figure 1.</b> In a dual-rail qubit<label for="sn-3" class="sn-ref" aria-label="Note 3"></label><input type="checkbox" id="sn-3" class="sn-toggle"><span class="sidenote">A single microwave photon shared between two cavities. Which cavity it occupies encodes the 0 or 1.</span> the dominant error, photon loss, can be detected directly. The ancilla is coupled to only one cavity, but a strong beamsplitter swaps the contents of the two cavities faster than the ancilla can tell them apart, so it responds only to the total photon number. In <a href="https://arxiv.org/abs/2406.14621">our experiment</a>, an undetected erasure slipped through in about 9 of every 10,000 checks. The decay rate here is a toy value.</figcaption>
   </figure>
 
   <section class="lists">
@@ -226,7 +223,6 @@ body { counter-reset: sn; }
     </div>
   </section>
 
-  <footer>Updated October 2026</footer>
 </main>
 
 
@@ -234,17 +230,16 @@ body { counter-reset: sn; }
 (() => {
   const $ = id => document.getElementById(id);
   const cupA = $("cupA"), cupB = $("cupB"), ballA = $("ballA"), ballB = $("ballB");
-  const bsLabel = $("bsLabel"), link = $("link"), lamp = $("lamp"), status = $("status"), clock = $("clock"), tally = $("tally"), ket = $("ket");
+  const bsLabel = $("bsLabel"), link = $("link"), lamp = $("lamp"), status = $("status"), clock = $("clock"), ket = $("ket");
   const btnWait = $("btnWait"), btnCheck = $("btnCheck"), btnLift = $("btnLift"), btnReset = $("btnReset");
 
   const STEP_MS = 0.3, LIFETIME_MS = 1.0;   // toy numbers: decay probability per step = 1 - e^(-0.3)
   const SUPERPOSITION = "(|10⟩ + |01⟩)/√2";
-  let s, checks = 0, caught = 0, busy = false;
+  let s, busy = false;
 
   function say(html) { status.innerHTML = html; }
   function render() {
     clock.textContent = "t = " + s.t.toFixed(1) + " ms";
-    tally.textContent = "checks " + checks + " · erasures detected " + caught;
     const done = s.collapsed || s.flagged;
     btnWait.disabled = busy || done;
     btnCheck.disabled = busy || done;
@@ -299,7 +294,7 @@ body { counter-reset: sn; }
   }
 
   btnCheck.addEventListener("click", async () => {
-    busy = true; checks++;
+    busy = true;
     lamp.setAttribute("class", "lamp busy");
     link.classList.add("fast");
     say("Swapping the cavities faster than the ancilla can tell them apart. It can respond only to the total photon number.");
@@ -311,7 +306,7 @@ body { counter-reset: sn; }
       lamp.setAttribute("class", "lamp");
       say("<span class=\"ok\">One photon.</span> The ancilla stayed in its ground state and learned nothing about where the photon is, so the qubit is preserved.");
     } else {
-      caught++; s.flagged = true;
+      s.flagged = true;
       lamp.setAttribute("class", "lamp err");
       showEmpty();
       say("<span class=\"err\">No photon: an erasure.</span> The ancilla is excited only in this case. The qubit's state is lost, but the code now knows which qubit failed and when.");
