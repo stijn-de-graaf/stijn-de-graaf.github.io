@@ -101,6 +101,7 @@ footer { color: var(--muted); font-size: 15px; }
 .controls button.primary { border-color: var(--fg); }
 .controls button:disabled { opacity: .4; cursor: default; }
 .status { margin: 0; min-height: 4.65em; }
+.status, .caption { text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
 .status .ok { color: var(--ok); } .status .err { color: var(--err); }
 .tally { color: var(--muted); font-size: 15px; font-variant-numeric: tabular-nums; }
 .caption { margin: 0; color: var(--muted); font-size: 16.5px; }
@@ -127,7 +128,7 @@ body { counter-reset: sn; }
   .page { gap: 28px; padding-block: 40px 64px; }
   h1 { font-size: 30px; }
   .role { font-size: 17px; line-height: 1.3; margin-top: 4px; text-wrap: balance; }
-  .bio p { text-align: left; hyphens: manual; -webkit-hyphens: manual; }
+  .bio p, .status, .caption { text-align: left; hyphens: manual; -webkit-hyphens: manual; }
   .toy { padding-block: 20px; }
   .toy-head { flex-wrap: nowrap; }
   .toy-clock { flex: none; font-size: 15px; }
@@ -160,7 +161,7 @@ body { counter-reset: sn; }
 
   <section class="bio">
     <p>I'm a research scientist at Google Quantum AI, where I work on physics-informed models of large-scale superconducting quantum processors.<label for="sn-1" class="sn-ref" aria-label="Note 1"></label><input type="checkbox" id="sn-1" class="sn-toggle"><span class="sidenote">Superconducting circuits cooled to a hundredth of a degree above absolute zero.</span></p>
-    <p>I did my PhD at Yale with Rob Schoelkopf, where I helped develop dual-rail erasure qubits<label for="sn-2" class="sn-ref" aria-label="Note 2"></label><input type="checkbox" id="sn-2" class="sn-toggle"><span class="sidenote">An error whose location is known. Codes can fix about twice as many of these.</span>: superconducting qubits whose dominant error reveals when and where it occurred, instead of leaving error correction to infer it from parity checks.</p>
+    <p>I did my PhD at Yale with Rob Schoelkopf, where I helped develop dual-rail erasure qubits: superconducting qubits whose dominant error reveals when and where it occurred, instead of leaving error correction to infer it from parity checks.</p>
   </section>
 
   <figure class="toy" aria-labelledby="toy-title">
