@@ -19,6 +19,7 @@
 <link rel="preload" href="/fonts/et-book-roman-old-style-figures.woff" as="font" type="font/woff" crossorigin>
 <style>
 /* One narrow column set in ET Book, like a Tufte-style preprint; the demo sits inline as a figure. */
+@font-face { font-family: "KaTeX Main"; src: url("/fonts/KaTeX_Main-Regular.woff2") format("woff2"); font-display: swap; }
 @font-face { font-family: "ET Book"; src: url("/fonts/et-book-roman-old-style-figures.woff") format("woff"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "ET Book"; src: url("/fonts/et-book-display-italic-old-style-figures.woff") format("woff"); font-weight: 400; font-style: italic; font-display: swap; }
 @font-face { font-family: "ET Book"; src: url("/fonts/et-book-semi-bold-old-style-figures.woff") format("woff"); font-weight: 700; font-style: normal; font-display: swap; }
@@ -73,7 +74,7 @@ footer { color: var(--muted); font-size: 15px; }
 .toy-clock { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 16px; }
 .stage { width: 100%; max-width: 100%; height: auto; display: block; overflow: visible; }
 .stage text { font-family: var(--f-text); font-size: 16px; fill: var(--fg); }
-.stage .ket { font-size: 19px; fill: var(--fg); }
+.stage .ket { font-family: "KaTeX Main", "Latin Modern Math", "STIX Two Math", Georgia, serif; font-size: 20px; fill: var(--fg); }
 .table-line { stroke: var(--rule); stroke-width: 2; }
 .cup path { fill: var(--cup); stroke: var(--fg); stroke-width: 1.4; stroke-linejoin: round; }
 .cup { transition: transform .5s cubic-bezier(.3,.7,.2,1); }
@@ -90,8 +91,8 @@ footer { color: var(--muted); font-size: 15px; }
 .lamp.busy { animation: pulse .35s ease-in-out 2 alternate; fill: var(--accent); }
 .lamp.err { fill: var(--err); }
 @keyframes pulse { to { opacity: .3; } }
-.ancilla-box { fill: var(--bg); stroke: var(--rule); stroke-width: 1.3; }
-.probe { stroke: var(--rule); stroke-width: 1.3; stroke-dasharray: 2 3; fill: none; }
+.ancilla-box { fill: var(--bg); stroke: var(--muted); stroke-width: 1.3; }
+.probe { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 3 3; fill: none; }
 
 .controls { display: flex; flex-wrap: wrap; gap: 8px; }
 .controls button { font: inherit; font-size: 16px; line-height: 1; padding: 9px 13px; border-radius: 3px; cursor: pointer;
@@ -159,7 +160,7 @@ body { counter-reset: sn; }
 
   <section class="bio">
     <p>I'm a research scientist at Google Quantum AI, where I work on physics-informed models of large-scale superconducting quantum processors.<label for="sn-1" class="sn-ref" aria-label="Note 1"></label><input type="checkbox" id="sn-1" class="sn-toggle"><span class="sidenote">Superconducting circuits cooled to a hundredth of a degree above absolute zero.</span></p>
-    <p>I did my PhD at Yale with Rob Schoelkopf, where I developed erasure qubits<label for="sn-2" class="sn-ref" aria-label="Note 2"></label><input type="checkbox" id="sn-2" class="sn-toggle"><span class="sidenote">An error whose location is known. Codes can fix about twice as many of these.</span>: superconducting qubits built so that their dominant error can be detected as it happens.</p>
+    <p>I did my PhD at Yale with Rob Schoelkopf, where I helped develop dual-rail erasure qubits<label for="sn-2" class="sn-ref" aria-label="Note 2"></label><input type="checkbox" id="sn-2" class="sn-toggle"><span class="sidenote">An error whose location is known. Codes can fix about twice as many of these.</span>: superconducting qubits whose dominant error reveals when and where it occurred, instead of leaving error correction to infer it from parity checks.</p>
   </section>
 
   <figure class="toy" aria-labelledby="toy-title">
@@ -191,7 +192,7 @@ body { counter-reset: sn; }
     </div>
     <p class="status" id="status" aria-live="polite"></p>
     <div class="tally" id="tally">checks 0 · erasures detected 0</div>
-    <figcaption class="caption"><b>Figure 1.</b> Most errors in a quantum computer leave no trace. In a dual-rail qubit<label for="sn-3" class="sn-ref" aria-label="Note 3"></label><input type="checkbox" id="sn-3" class="sn-toggle"><span class="sidenote">One microwave photon in one of two cavities. Which cavity is the 0 or 1.</span> the dominant error, photon loss, can be detected directly. The ancilla is coupled to only one cavity, but a strong beamsplitter swaps the two cavities faster than the ancilla can tell them apart, so it responds only to the total photon number. In the device the cavities stay put and their contents swap. In <a href="https://arxiv.org/abs/2406.14621">our experiment</a>, an undetected erasure slipped through in about 9 of every 10,000 checks. The decay rate here is a toy value.</figcaption>
+    <figcaption class="caption"><b>Figure 1.</b> Most errors in a quantum computer leave no trace. In a dual-rail qubit<label for="sn-3" class="sn-ref" aria-label="Note 3"></label><input type="checkbox" id="sn-3" class="sn-toggle"><span class="sidenote">A single microwave photon shared between two cavities. Which cavity it occupies encodes the 0 or 1.</span> the dominant error, photon loss, can be detected directly. The ancilla is coupled to only one cavity, but a strong beamsplitter swaps the two cavities faster than the ancilla can tell them apart, so it responds only to the total photon number. In the device the cavities stay put and their contents swap. In <a href="https://arxiv.org/abs/2406.14621">our experiment</a>, an undetected erasure slipped through in about 9 of every 10,000 checks. The decay rate here is a toy value.</figcaption>
   </figure>
 
   <section class="lists">
